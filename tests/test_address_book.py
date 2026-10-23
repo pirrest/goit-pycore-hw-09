@@ -17,14 +17,44 @@ def make_fake_date(today: date):
 
 
 class AddressBookTest(unittest.TestCase):
-    def test_find_is_case_insensitive(self):
+    def test_is_a_list_and_allows_duplicate_names(self):
         book = AddressBook()
-        record = Record("Alice")
-        self.assertTrue(book.add_record(record))
-        self.assertFalse(book.add_record(Record("alice")))
-        self.assertIs(book.find("ALICE"), record)
-        self.assertTrue(book.delete("alice"))
-        self.assertIsNone(book.find("Alice"))
+        first, second = Record("Alice"), Record("alice")
+        book.add_record(first)
+        book.add_record(second)
+        self.assertEqual(len(book), 2)
+        self.assertIs(book[0], first)
+        self.assertEqual(list(book), [first, second])
+
+    def test_find_by_name(self):
+        book = AddressBook()
+        alice, alicia, bob = Record("Alice"), Record("Alicia Smith"), Record("Bob")
+        for record in (alice, alicia, bob):
+            book.add_record(record)
+        self.assertEqual(book.find_by_name("ALICE", exact=True), [alice])
+        self.assertEqual(book.find_by_name("ali"), [alice, alicia])
+        self.assertEqual(book.find_by_name("smith", exact=True), [])
+        self.assertEqual(book.find_by_name("zed"), [])
+
+    def test_search_looks_in_all_fields(self):
+        book = AddressBook()
+        alice, bob = Record("Alice"), Record("Bob")
+        alice.add_email("alice@example.com")
+        bob.add_address("Alice Street 5")
+        book.add_record(alice)
+        book.add_record(bob)
+        self.assertEqual(book.search("alice"), [alice, bob])
+        self.assertEqual(book.search("example.com"), [alice])
+        self.assertEqual(book.search(""), [])
+
+    def test_delete_removes_only_the_given_record(self):
+        book = AddressBook()
+        first, second = Record("Alice"), Record("Alice")
+        book.add_record(first)
+        book.add_record(second)
+        self.assertTrue(book.delete(second))
+        self.assertFalse(book.delete(second))
+        self.assertEqual(list(book), [first])
 
 
 class UpcomingBirthdaysTest(unittest.TestCase):
@@ -50,13 +80,19 @@ class UpcomingBirthdaysTest(unittest.TestCase):
         })
         self.assertEqual(result, {"Today": date(2026, 10, 23), "Day6": date(2026, 10, 29)})
 
-    def test_weekend_moves_to_monday(self):
-        # Saturday and Sunday both move to Monday 2026-10-26
-        result = self.upcoming(date(2026, 10, 23), {
-            "Saturday": "24.10.1990",
-            "Sunday": "25.10.1990",
-        })
-        self.assertEqual(result, {"Saturday": date(2026, 10, 26), "Sunday": date(2026, 10, 26)})
+    def test_weekend_moves_to_monday_and_keeps_real_birthday(self):
+        book = AddressBook()
+        record = Record("Saturday")
+        record.add_birthday("24.10.1990")
+        book.add_record(record)
+        with patch("address_book.address_book.date", make_fake_date(date(2026, 10, 23))):
+            [item] = book.get_upcoming_birthdays()
+        self.assertEqual(item.congratulation_date, date(2026, 10, 26))
+        self.assertEqual(item.birthday_date, date(2026, 10, 24))
+
+    def test_sunday_moves_to_monday(self):
+        result = self.upcoming(date(2026, 10, 23), {"Sunday": "25.10.1990"})
+        self.assertEqual(result, {"Sunday": date(2026, 10, 26)})
 
     def test_custom_window(self):
         book = AddressBook()

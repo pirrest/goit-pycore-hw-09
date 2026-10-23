@@ -1,10 +1,19 @@
+from .address import Address
 from .address_book import AddressBook
-from .address_book_storage import AddressBookStorage
 from .birthday import Birthday
-from .field import Field
+from .email import Email
 from .name import Name
 from .phone import Phone
 from .record import Record
 from .upcoming_birthday import UpcomingBirthday
 
-__all__ = ["AddressBook", "AddressBookStorage", "Birthday", "Field", "Name", "Phone", "Record", "UpcomingBirthday"]
+__all__ = [
+    "Address",
+    "AddressBook",
+    "Birthday",
+    "Email",
+    "Name",
+    "Phone",
+    "Record",
+    "UpcomingBirthday",
+]

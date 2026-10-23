@@ -1,7 +1,7 @@
 import datetime as dt
 import re
 
-from .field import Field
+from common import Field
 
 
 class Birthday(Field):

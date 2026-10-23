@@ -1,13 +1,10 @@
-from .field import Field
+from common import RequiredText
 
 
-class Name(Field):
+class Name(RequiredText):
     """Required contact name, must not be empty."""
 
-    def __init__(self, value):
-        if not isinstance(value, str) or not value.strip():
-            raise ValueError("Name cannot be empty.")
-        super().__init__(value)
+    ERROR_MESSAGE = "Name cannot be empty."
 
     @staticmethod
     def to_key(name: str) -> str:
