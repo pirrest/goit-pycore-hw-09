@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from bot.prompt import Cancelled, choose, confirm
+from personal_assistant.bot.prompt import Cancelled, choose, confirm
 
 
 class ChooseTest(unittest.TestCase):

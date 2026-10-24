@@ -1,6 +1,6 @@
 import unittest
 
-from notes import Note, NoteBook, Tag
+from personal_assistant.notes import Note, NoteBook, Tag
 
 
 class TagTest(unittest.TestCase):

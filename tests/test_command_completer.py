@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from bot.command_completer import CommandCompleter
+from personal_assistant.bot.command_completer import CommandCompleter
 
 
 class CommandCompleterTest(unittest.TestCase):
@@ -10,7 +10,7 @@ class CommandCompleterTest(unittest.TestCase):
 
     def complete_all(self, text, line=None, begidx=0):
         line = text if line is None else line
-        with patch("bot.command_completer.readline") as readline:
+        with patch("personal_assistant.bot.command_completer.readline") as readline:
             readline.get_line_buffer.return_value = line
             readline.get_begidx.return_value = begidx
             results = []

@@ -1,2 +1,0 @@
-# No third-party dependencies, only the standard library (Python 3.10+).
-# Tests are run with: python -m unittest

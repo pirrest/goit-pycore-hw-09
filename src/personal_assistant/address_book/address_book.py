@@ -1,7 +1,7 @@
 from collections import UserList
 from datetime import date
 
-from storage import FileStorage
+from personal_assistant.storage import FileStorage
 
 from .name import Name
 from .record import Record

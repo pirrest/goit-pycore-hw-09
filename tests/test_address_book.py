@@ -2,7 +2,7 @@ import unittest
 from datetime import date
 from unittest.mock import patch
 
-from address_book import AddressBook, Record
+from personal_assistant.address_book import AddressBook, Record
 
 
 def make_fake_date(today: date):
@@ -65,7 +65,7 @@ class UpcomingBirthdaysTest(unittest.TestCase):
             if birthday:
                 record.add_birthday(birthday)
             book.add_record(record)
-        with patch("address_book.address_book.date", make_fake_date(today)):
+        with patch("personal_assistant.address_book.address_book.date", make_fake_date(today)):
             result = book.get_upcoming_birthdays()
         return {item.record.name.value: item.congratulation_date for item in result}
 
@@ -85,7 +85,7 @@ class UpcomingBirthdaysTest(unittest.TestCase):
         record = Record("Saturday")
         record.add_birthday("24.10.1990")
         book.add_record(record)
-        with patch("address_book.address_book.date", make_fake_date(date(2026, 10, 23))):
+        with patch("personal_assistant.address_book.address_book.date", make_fake_date(date(2026, 10, 23))):
             [item] = book.get_upcoming_birthdays()
         self.assertEqual(item.congratulation_date, date(2026, 10, 26))
         self.assertEqual(item.birthday_date, date(2026, 10, 24))
@@ -100,7 +100,7 @@ class UpcomingBirthdaysTest(unittest.TestCase):
             record = Record(name)
             record.add_birthday(birthday)
             book.add_record(record)
-        with patch("address_book.address_book.date", make_fake_date(date(2026, 10, 23))):
+        with patch("personal_assistant.address_book.address_book.date", make_fake_date(date(2026, 10, 23))):
             result = book.get_upcoming_birthdays(upcoming_days=3)
         self.assertEqual([item.record.name.value for item in result], ["Day2"])
 

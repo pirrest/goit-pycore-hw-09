@@ -1,4 +1,4 @@
-from common import RequiredText
+from personal_assistant.common import RequiredText
 
 
 class Title(RequiredText):

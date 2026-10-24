@@ -2,8 +2,8 @@ import shlex
 from dataclasses import dataclass
 from functools import wraps
 
-from address_book import AddressBook, Birthday, Record
-from notes import Note, NoteBook
+from personal_assistant.address_book import AddressBook, Birthday, Record
+from personal_assistant.notes import Note, NoteBook
 
 from .command_completer import CommandCompleter
 from .prompt import Cancelled, ask, choose, confirm

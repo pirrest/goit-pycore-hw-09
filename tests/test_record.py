@@ -1,7 +1,7 @@
 import datetime as dt
 import unittest
 
-from address_book import Record
+from personal_assistant.address_book import Record
 
 
 class RecordTest(unittest.TestCase):

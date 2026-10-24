@@ -1,6 +1,6 @@
 from collections import UserList
 
-from storage import FileStorage
+from personal_assistant.storage import FileStorage
 
 from .note import Note
 

@@ -5,9 +5,9 @@ from contextlib import redirect_stdout
 from io import StringIO
 from unittest.mock import patch
 
-from address_book import AddressBook, Record
-from notes import Note, NoteBook
-from storage import FileStorage
+from personal_assistant.address_book import AddressBook, Record
+from personal_assistant.notes import Note, NoteBook
+from personal_assistant.storage import FileStorage
 
 
 class FileStorageTest(unittest.TestCase):

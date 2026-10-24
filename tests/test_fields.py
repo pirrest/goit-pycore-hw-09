@@ -1,7 +1,7 @@
 import datetime as dt
 import unittest
 
-from address_book import Address, Birthday, Email, Name, Phone
+from personal_assistant.address_book import Address, Birthday, Email, Name, Phone
 
 
 class BirthdayTest(unittest.TestCase):

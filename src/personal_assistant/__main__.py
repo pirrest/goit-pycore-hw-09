@@ -1,6 +1,6 @@
-from address_book import AddressBook
-from bot.bot import Bot
-from notes import NoteBook
+from personal_assistant.address_book import AddressBook
+from personal_assistant.bot.bot import Bot
+from personal_assistant.notes import NoteBook
 
 
 def main():

@@ -1,6 +1,6 @@
 import re
 
-from common import Field
+from personal_assistant.common import Field
 
 
 class Email(Field):

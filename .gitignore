@@ -1,3 +1,7 @@
 *.pkl
 *.pkl.bak
 __pycache__/
+*.egg-info/
+build/
+dist/
+.venv/

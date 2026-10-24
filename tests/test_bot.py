@@ -4,8 +4,8 @@ from contextlib import redirect_stdout
 from io import StringIO
 from unittest.mock import patch
 
-from address_book import Record
-from bot.bot import Bot, parse_input
+from personal_assistant.address_book import Record
+from personal_assistant.bot.bot import Bot, parse_input
 from tests.test_address_book import make_fake_date
 
 
@@ -258,7 +258,7 @@ class ContactsTest(BotTestCase):
         self.bot.add_birthday(["Alice", "24.10.1990"])
         self.bot.add_contact(["Bob"])
         self.bot.add_birthday(["Bob", "28.10.1990"])
-        with patch("address_book.address_book.date", make_fake_date(dt.date(2026, 10, 23))):
+        with patch("personal_assistant.address_book.address_book.date", make_fake_date(dt.date(2026, 10, 23))):
             # Saturday is moved to Monday, so the real birthday is shown too
             self.assertEqual(
                 self.run_handler(self.bot.birthdays, []),
